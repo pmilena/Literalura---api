@@ -1,56 +1,52 @@
 package com.milena.literalura.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="livros")
 public class Livro {
 
-    //private Integer gutenbergId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
     private Integer numeroDownloads;
-    private List<String> idioma;
-    private List<DadosAutor> autor;
+
+    @Column(name = "idioma")
+    private String idioma;
+
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Autor> autores = new ArrayList<>();
 
     public Livro() {}
 
-    public Livro(DadosLivro d){
-        //this.gutenbergId=d.gutenbergId();
-        this.titulo=d.titulo();
-        this.numeroDownloads=d.numeroDownloads();
-        this.idioma=d.idioma();
-        this.autor=d.autor();
+
+    public Livro(DadosLivro d) {
+        this.titulo = d.titulo();
+        this.numeroDownloads = d.numeroDownloads();
+        this.idioma = String.join(",", d.idioma());
+
+        if (d.autor() != null && !d.autor().isEmpty()) {
+            for (DadosAutor dadosAutor : d.autor()) {
+
+                Autor autor = new Autor(dadosAutor);
+                autor.setLivro(this);
+                this.autores.add(autor);
+            }
+        }
+
+    }
+    public Long getId() {
+        return id;
     }
 
-   /* public Integer getGutenbergId() {
-        return gutenbergId;
-    }
-
-    public void setGutenbergId(Integer gutenbergId) {
-        this.gutenbergId = gutenbergId;
-    }*/
-
-    public Integer getNumeroDownloads() {
-        return numeroDownloads;
-    }
-
-    public void setNumeroDownloads(Integer numeroDownloads) {
-        this.numeroDownloads = numeroDownloads;
-    }
-
-    public List<String> getIdioma() {
-        return idioma;
-    }
-
-    public void setIdioma(List<String> idioma) {
-        this.idioma = idioma;
-    }
-
-    public List<DadosAutor> getAutor() {
-        return autor;
-    }
-
-    public void setAutor(List<DadosAutor> autor) {
-        this.autor = autor;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -60,4 +56,35 @@ public class Livro {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-}
+
+    public Integer getNumeroDownloads() {
+        return numeroDownloads;
+    }
+
+    public void setNumeroDownloads(Integer numeroDownloads) {
+        this.numeroDownloads = numeroDownloads;
+    }
+
+    public String getIdioma() {
+        return idioma;
+    }
+
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+        for (Autor autor : autores) {
+            autor.setLivro(this);
+        }
+}}
+
+
+

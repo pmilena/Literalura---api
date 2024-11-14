@@ -1,17 +1,22 @@
 package com.milena.literalura.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+@Entity
+@Table(name="autores")
 public class Autor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nome;
     private Integer anoNascimento;
     private Integer anoFalecimento;
+
+    @ManyToOne
+    @JoinColumn(name = "livro_id")
+    private Livro livro;
 
     public Autor() {}
 
@@ -20,6 +25,7 @@ public class Autor {
         this.anoNascimento=d.anoNascimento();
         this.anoFalecimento=d.anoFalecimento();
     }
+
 
     public String getNome() {
         return nome;
@@ -43,6 +49,22 @@ public class Autor {
 
     public void setAnoFalecimento(Integer anoFalecimento) {
         this.anoFalecimento = anoFalecimento;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 }
 
