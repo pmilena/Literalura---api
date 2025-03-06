@@ -51,3 +51,56 @@ A API **Gutendex** fornece acesso a mais de 70 mil livros. Ela pode ser consulta
 - [Gutendex API](https://gutendex.com/)
 
 ##
+*******************************************************************************************************
+
+# LiterAlura - Book Catalog
+
+This project implements a book catalog that consumes data from an external API and persists information in a relational database.
+
+The application is built using **Java**, **Spring Boot**, and **PostgreSQL**. It allows performing operations such as searching for books through the API, listing registered books, filtering by authors and languages, and much more.
+
+### Technologies Used
+
+- **Java**
+- **Spring Boot**
+- **PostgreSQL**
+- **Spring Data JPA**
+
+## Features
+
+The application offers a terminal interface with 5 main options for user interaction:
+
+1. **Search for a book by title**: Queries the Gutendex API directly and inserts the book into the database.
+   
+2. **List registered books**: Displays all the books that have been inserted into the database.
+   
+3. **List our authors**: Displays the data of registered authors, including name and associated books.
+   
+4. **List authors from a specific year**: Filters authors who were alive in a specific year.
+   
+5. **List books in a specific language**: Filters books by a specific language, such as Spanish, English, French, or Portuguese.
+
+6. **Search books by author**: Displays titles by a specific author.
+
+## Project Setup
+
+This project was created with **Spring Initializr** with the following configurations:
+
+- **Language**: Java
+- **Dependency Manager**: Maven
+- **Spring Boot Version**: The version compatible with the project.
+- **Dependencies**:
+  - Spring Data JPA
+  - PostgreSQL Driver
+
+## Database
+
+The application uses the **PostgreSQL** database for data persistence. Below is the official website for downloading PostgreSQL:
+
+- [PostgreSQL - Download](https://www.postgresql.org/download/)
+
+## Gutendex API
+
+The **Gutendex API** provides access to over 70,000 books. It can be queried directly through the official website, and we use it to search for and insert books into our database.
+
+- [Gutendex API](https://gutendex.com/)
